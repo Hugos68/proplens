@@ -1,5 +1,5 @@
-import { lensFactory } from "./factory.js";
-import { parse, walk } from "svelte/compiler";
+import { lensFactory } from "../utility/lens-factory.js";
+import { parse } from "svelte/compiler";
 import type { Prop } from "../types";
 
 const svelteLens = lensFactory((code) => {
