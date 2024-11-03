@@ -1,12 +1,17 @@
 import { readFileSync } from "node:fs";
+import {
+	type Component,
+	type Prop,
+	getPropsFromType,
+	parse,
+	walk,
+} from "@proplens/core";
 import { svelte2tsx } from "svelte2tsx";
 import {
 	isCallExpression,
 	isIdentifier,
 	isVariableDeclaration,
 } from "typescript";
-import { getPropsFromType, parse, walk } from "../core";
-import type { Component, Prop } from "../types";
 
 export function parseSvelte(path: string): Component[] {
 	const components: Component[] = [];

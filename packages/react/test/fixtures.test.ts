@@ -1,0 +1,23 @@
+import { fileURLToPath, resolve } from "node:url";
+import { describe, expect, test } from "vitest";
+import { parseReact } from "../src";
+
+const fixtures = import.meta.glob("./fixtures/*.tsx", {
+	query: "?raw",
+});
+
+describe("fixtures", () => {
+	for (const path of Object.keys(fixtures)) {
+		const name = path.split("/").at(-1);
+		if (!name) {
+			continue;
+		}
+		test(name, async () => {
+			const actual = parseReact(resolve(fileURLToPath(import.meta.url), path));
+			const expected = await import(
+				path.replace("fixtures", "results").replace(".tsx", ".json")
+			).then((module) => module.default);
+			expect(actual).toStrictEqual(expected);
+		});
+	}
+});

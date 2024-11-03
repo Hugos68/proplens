@@ -1,0 +1,24 @@
+{
+	"name": "@proplens/core",
+	"version": "0.0.1",
+	"type": "module",
+	"scripts": {
+		"build": "unbuild"
+	},
+	"exports": {
+		".": {
+			"import": "./dist/index.mjs",
+			"require": "./dist/index.cjs"
+		}
+	},
+	"main": "./dist/index.cjs",
+	"types": "./dist/index.d.ts",
+	"files": ["dist"],
+	"dependencies": {
+		"typescript": "catalog:"
+	},
+	"devDependencies": {
+		"@types/node": "^22.8.7",
+		"unbuild": "catalog:"
+	}
+}

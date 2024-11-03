@@ -1,19 +1,18 @@
 {
 	"compilerOptions": {
-		"lib": ["ESNext"],
 		"target": "ESNext",
-		"module": "ESNext",
+		"lib": ["DOM", "ESNext"],
 		"moduleDetection": "force",
-		"moduleResolution": "bundler",
-		"verbatimModuleSyntax": true,
-		"noEmit": true,
+		"module": "ESNext",
+		"moduleResolution": "Bundler",
+		"types": ["node", "vite/client"],
 		"strict": true,
-		"declaration": true,
-		"sourceMap": true,
-		"skipLibCheck": true,
-		"noUncheckedIndexedAccess": true,
-		"noFallthroughCasesInSwitch": true,
-		"noUnusedLocals": true,
-		"noUnusedParameters": true
-	}
+		"noEmit": true,
+		"esModuleInterop": true,
+		"isolatedModules": true,
+		"skipDefaultLibCheck": true,
+		"skipLibCheck": true
+	},
+	"include": ["packages/*/test/*.ts", "packages/*/src/*.ts"],
+	"exclude": ["**/test/fixtures/**", "**/test/results/**", "**/dist/**"]
 }

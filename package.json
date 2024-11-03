@@ -1,22 +1,15 @@
 {
-	"name": "proplens",
-	"version": "0.0.1",
+	"name": "@proplens/monorepo",
+	"private": true,
 	"scripts": {
-		"build": "unbuild",
+		"build": "pnpm -r build",
 		"test": "vitest",
 		"check": "biome check"
 	},
 	"devDependencies": {
 		"@biomejs/biome": "^1.9.4",
-		"@types/node": "^22.8.7",
-		"fast-glob": "^3.3.2",
-		"unbuild": "^2.0.0",
 		"vite": "^5.4.10",
 		"vitest": "^2.1.4"
-	},
-	"dependencies": {
-		"svelte2tsx": "^0.7.22",
-		"typescript": "^5.6.3"
 	},
 	"packageManager": "pnpm@9.12.3"
 }

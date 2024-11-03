@@ -4,29 +4,22 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
+catalogs:
+  default:
+    typescript:
+      specifier: ^5.6.0
+      version: 5.6.3
+    unbuild:
+      specifier: ^2.0.0
+      version: 2.0.0
+
 importers:
 
   .:
-    dependencies:
-      svelte2tsx:
-        specifier: ^0.7.22
-        version: 0.7.22(svelte@5.1.9)(typescript@5.6.3)
-      typescript:
-        specifier: ^5.6.3
-        version: 5.6.3
     devDependencies:
       '@biomejs/biome':
         specifier: ^1.9.4
         version: 1.9.4
-      '@types/node':
-        specifier: ^22.8.7
-        version: 22.8.7
-      fast-glob:
-        specifier: ^3.3.2
-        version: 3.3.2
-      unbuild:
-        specifier: ^2.0.0
-        version: 2.0.0(typescript@5.6.3)
       vite:
         specifier: ^5.4.10
         version: 5.4.10(@types/node@22.8.7)
@@ -35,10 +28,30 @@ importers:
         version: 2.1.4(@types/node@22.8.7)
 
   packages/core:
-    devDependencies:
+    dependencies:
       typescript:
         specifier: 'catalog:'
         version: 5.6.3
+    devDependencies:
+      '@types/node':
+        specifier: ^22.8.7
+        version: 22.8.7
+      unbuild:
+        specifier: 'catalog:'
+        version: 2.0.0(typescript@5.6.3)
+
+  packages/react:
+    dependencies:
+      '@proplens/core':
+        specifier: workspace:*
+        version: link:../core
+      typescript:
+        specifier: 'catalog:'
+        version: 5.6.3
+    devDependencies:
+      '@types/node':
+        specifier: ^22.8.7
+        version: 22.8.7
       unbuild:
         specifier: 'catalog:'
         version: 2.0.0(typescript@5.6.3)
@@ -48,19 +61,16 @@ importers:
       '@proplens/core':
         specifier: workspace:*
         version: link:../core
-      '@types/node':
-        specifier: ^22.8.7
-        version: 22.8.7
       svelte2tsx:
         specifier: ^0.7.22
         version: 0.7.22(svelte@5.1.9)(typescript@5.6.3)
-    devDependencies:
-      '@zag-js/accordion':
-        specifier: ^0.77.0
-        version: 0.77.0
       typescript:
         specifier: 'catalog:'
         version: 5.6.3
+    devDependencies:
+      '@types/node':
+        specifier: ^22.8.7
+        version: 22.8.7
       unbuild:
         specifier: 'catalog:'
         version: 2.0.0(typescript@5.6.3)
@@ -827,33 +837,6 @@ packages:
   '@vitest/utils@2.1.4':
     resolution: {integrity: sha512-MXDnZn0Awl2S86PSNIim5PWXgIAx8CIkzu35mBdSApUip6RFOGXBCf3YFyeEu8n1IHk4bWD46DeYFu9mQlFIRg==}
 
-  '@zag-js/accordion@0.77.0':
-    resolution: {integrity: sha512-Jl2ZeuxSLHm6jCvNJVBgBcQyOn7+YyULglWlINgg+nYp9Zsoos/h0TwtLvrhdfdPciCWKffsdVeavTy9nsda3g==}
-
-  '@zag-js/anatomy@0.77.0':
-    resolution: {integrity: sha512-cfDlyPg6wHHgApFNvZOH2tsfWkLY21t7jMu1aT6eRvAuWAX8+7TBW+onfPgQCsvpY+Skk/znNDHviSZbLV4z8w==}
-
-  '@zag-js/core@0.77.0':
-    resolution: {integrity: sha512-mBylqEeoh916FqEk7Go0E21b47cAJfgz69miVrm8smh0VGLLXGJraCMVONRAXIRc3nmuX9tgTjsEuBy0oIloNA==}
-
-  '@zag-js/dom-event@0.77.0':
-    resolution: {integrity: sha512-lrvJuBPDDVy/X5LGpG8pjDCS5bGrAJE/bQXAWhQwhqo9lUa1399eYZ7VqGCBN6K5UhdPB1KeFPm59Asl4/FIjQ==}
-
-  '@zag-js/dom-query@0.77.0':
-    resolution: {integrity: sha512-si24Z83MBBPa4Embd8SLUYk6SEr3kb0oNWbSyywvs+9HtTyoKJ+LmKS2lctzxm2rW0v6rbLFjvmjyW/wWz5A/g==}
-
-  '@zag-js/store@0.77.0':
-    resolution: {integrity: sha512-5VdZVkAKdW7Uig4MpUj8Y/G12q5qSrZcQ6gbdZCl6n5T4IuMRuCHrDtBwVcU0UX0hpegqTetp1fY36RgLrP0RQ==}
-
-  '@zag-js/text-selection@0.77.0':
-    resolution: {integrity: sha512-ui2Kxj/8wJyeOm/AIHuhUwxRR5RzkHIxNVCJ5DHFv/uvhq1kLtXiUQRQZc9mmx3kmW51p/fCqmE835Q1xHEQEA==}
-
-  '@zag-js/types@0.77.0':
-    resolution: {integrity: sha512-3SyxTJFpx5B7OY9Od90fj9wPbnLye1wfijuC5619Q85M7bCbWNsVbhcQLb81kQM/o+c+b0SIdzZWHYqqTnih0A==}
-
-  '@zag-js/utils@0.77.0':
-    resolution: {integrity: sha512-T8UpwR43fUr+a/eRML9aSOUBal9bylDqoEZCwAS49Hm6oRldlyQayPM6kh3kDn+N9QX3fD00Hu/u9J29lAZkaw==}
-
   acorn-typescript@1.4.13:
     resolution: {integrity: sha512-xsc9Xv0xlVfwp2o7sQ+GCQ1PgbkdcpWdTzrwXxO3xDMTAywVS3oXVOcOHuRjAPkS4P9b+yc/qNF15460v+jp4Q==}
     peerDependencies:
@@ -994,9 +977,6 @@ packages:
     resolution: {integrity: sha512-0LrrStPOdJj+SPCCrGhzryycLjwcgUSHBtxNA8aIDxf0GLsRh1cKYhB00Gd1lDOS4yGH69+SNn13+TWbVHETFQ==}
     engines: {node: ^10 || ^12.20.0 || ^14.13.0 || >=15.0.0, npm: '>=7.0.0'}
 
-  csstype@3.1.3:
-    resolution: {integrity: sha512-M1uQkMl8rQK/szD0LNhtqxIPLpimGm8sOBwU7lLnCpSbTyY3yeU1Vc7l4KT5zT4s/yOxHH5O7tIuuLOCnLADRw==}
-
   debug@4.3.7:
     resolution: {integrity: sha512-Er2nc/H7RrMXZBFCEim6TCmMk02Z8vLC2Rbi1KEBggpo0fS6l0S1nnapwmIi3yW/+GOJap1Krg4w0Hg80oCqgQ==}
     engines: {node: '>=6.0'}
@@ -1123,6 +1103,7 @@ packages:
   glob@8.1.0:
     resolution: {integrity: sha512-r8hpEjiQEYlF2QU0df3dS+nxxSIreXQS1qRhMJM0Q5NDdR386C7jb7Hwwod8Fgiuex+k0GFjgft18yvxm5XoCQ==}
     engines: {node: '>=12'}
+    deprecated: Glob versions prior to v9 are no longer supported
 
   globals@11.12.0:
     resolution: {integrity: sha512-WOBp/EEGUiIsJSp7wcv/y6MO+lV9UoncWqxuFfm8eBwzWNgyfBd6Gz+IeKQ9jCmyhoH99g15M3T+QaVHFjizVA==}
@@ -1145,6 +1126,7 @@ packages:
 
   inflight@1.0.6:
     resolution: {integrity: sha512-k92I/b08q4wvFscXCLvqfsHCrjrF7yiXsQuIVvVE7N82W3+aqpzuUdBbfhWcy/FZR3/4IgflMgKLOsvPDrGCJA==}
+    deprecated: This module is not supported, and leaks memory. Do not use it. Check out lru-cache if you want a good and tested way to coalesce async requests by a key value, which is much more comprehensive and powerful.
 
   inherits@2.0.4:
     resolution: {integrity: sha512-k/vGaX4/Yla3WzyMCvTQOXYeIHvqOKtnqBduzTHpzpQZzAskKMhZ2K+EnBiSM9zGSoIFeMpXKxa4dYeZIQqewQ==}
@@ -1194,9 +1176,6 @@ packages:
     resolution: {integrity: sha512-XmOWe7eyHYH14cLdVPoyg+GOH3rYX++KpzrylJwSW98t3Nk+U8XOl8FWKOgwtzdb8lXGf6zYwDUzeHMWfxasyg==}
     engines: {node: '>=6'}
     hasBin: true
-
-  klona@2.0.6:
-    resolution: {integrity: sha512-dhG34DXATL5hSxJbIexCft8FChFXtmskoZYnoPWjXQuebWYCNkVeV3KkGegCK9CP1oswI/vQibS2GY7Em/sJJA==}
 
   lilconfig@3.1.2:
     resolution: {integrity: sha512-eop+wDAvpItUys0FWkHIKeC9ybYrTGbU41U5K7+bttZZeohvnY7M9dZ5kB21GNWiFT2q1OoPTvncPCgSOVO5ow==}
@@ -1500,9 +1479,6 @@ packages:
   pretty-bytes@6.1.1:
     resolution: {integrity: sha512-mQUvGU6aUFQ+rNvTIAcZuWGRT9a6f6Yrg9bHs4ImKF+HZCEK+plBvnAZYSIQztknZF2qnzNtr6F8s0+IuptdlQ==}
     engines: {node: ^14.13.1 || >=16.0.0}
-
-  proxy-compare@3.0.0:
-    resolution: {integrity: sha512-y44MCkgtZUCT9tZGuE278fB7PWVf7fRYy0vbRXAts2o5F0EfC4fIQrvQQGBJo1WJbFcVLXzApOscyJuZqHQc1w==}
 
   queue-microtask@1.2.3:
     resolution: {integrity: sha512-NuaNSa6flKT5JaSYQzJok04JzTL1CA6aGhv5rfLW3PgqA+M2ChpZQnAC8h8i4ZFkBS8X5RqkDBHA7r4hej3K9A==}
@@ -2257,45 +2233,6 @@ snapshots:
       loupe: 3.1.2
       tinyrainbow: 1.2.0
 
-  '@zag-js/accordion@0.77.0':
-    dependencies:
-      '@zag-js/anatomy': 0.77.0
-      '@zag-js/core': 0.77.0
-      '@zag-js/dom-event': 0.77.0
-      '@zag-js/dom-query': 0.77.0
-      '@zag-js/types': 0.77.0
-      '@zag-js/utils': 0.77.0
-
-  '@zag-js/anatomy@0.77.0': {}
-
-  '@zag-js/core@0.77.0':
-    dependencies:
-      '@zag-js/store': 0.77.0
-      '@zag-js/utils': 0.77.0
-      klona: 2.0.6
-
-  '@zag-js/dom-event@0.77.0':
-    dependencies:
-      '@zag-js/dom-query': 0.77.0
-      '@zag-js/text-selection': 0.77.0
-      '@zag-js/types': 0.77.0
-
-  '@zag-js/dom-query@0.77.0': {}
-
-  '@zag-js/store@0.77.0':
-    dependencies:
-      proxy-compare: 3.0.0
-
-  '@zag-js/text-selection@0.77.0':
-    dependencies:
-      '@zag-js/dom-query': 0.77.0
-
-  '@zag-js/types@0.77.0':
-    dependencies:
-      csstype: 3.1.3
-
-  '@zag-js/utils@0.77.0': {}
-
   acorn-typescript@1.4.13(acorn@8.14.0):
     dependencies:
       acorn: 8.14.0
@@ -2449,8 +2386,6 @@ snapshots:
   csso@5.0.5:
     dependencies:
       css-tree: 2.2.1
-
-  csstype@3.1.3: {}
 
   debug@4.3.7:
     dependencies:
@@ -2685,8 +2620,6 @@ snapshots:
   jsesc@3.0.2: {}
 
   json5@2.2.3: {}
-
-  klona@2.0.6: {}
 
   lilconfig@3.1.2: {}
 
@@ -2966,8 +2899,6 @@ snapshots:
       source-map-js: 1.2.1
 
   pretty-bytes@6.1.1: {}
-
-  proxy-compare@3.0.0: {}
 
   queue-microtask@1.2.3: {}
 

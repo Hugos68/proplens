@@ -18,6 +18,8 @@ import {
 } from "typescript";
 import type { Prop } from "./types";
 
+export * from "./types";
+
 export function getPropsFromType(type: Type, typeChecker: TypeChecker) {
 	const props: Prop[] = [];
 	for (const property of type.getProperties()) {

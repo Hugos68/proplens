@@ -1,7 +1,6 @@
 import { readFileSync } from "node:fs";
+import { type Component, parse, walk } from "@proplens/core";
 import { isNamedExports } from "typescript";
-import { parse, walk } from "../core";
-import type { Component } from "../types";
 
 export function parseReact(path: string): Component[] {
 	const components: Component[] = [];
