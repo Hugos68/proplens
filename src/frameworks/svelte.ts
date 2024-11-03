@@ -14,7 +14,6 @@ export function parseSvelte(code: string): Component[] {
 		return components;
 	}
 	walk(parsed.sourceFile, (node) => {
-		console.log(node);
 		if (
 			isVariableDeclaration(node) &&
 			node.type &&
