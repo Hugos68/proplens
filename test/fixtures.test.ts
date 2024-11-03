@@ -2,8 +2,8 @@
 
 import { fileURLToPath, resolve } from "node:url";
 import { describe, expect, test } from "vitest";
-import { parseSvelte } from "../src";
-import { parseReact } from "../src/frameworks/react";
+import { parseSvelte } from "../src.ts";
+import { parseReact } from "../src/frameworks/react.ts";
 
 const fixtures = import.meta.glob("./fixtures/**/*.{svelte,tsx}", {
 	query: "?raw",

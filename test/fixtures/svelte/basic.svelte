@@ -2,5 +2,5 @@
 interface Props {
 	foo: string;
 }
-const props: Props = $props();
+const _props: Props = $props();
 </script>

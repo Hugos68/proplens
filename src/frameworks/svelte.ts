@@ -1,13 +1,12 @@
 import { readFileSync } from "node:fs";
-import { fileURLToPath, resolve } from "node:url";
 import { svelte2tsx } from "svelte2tsx";
 import {
 	isCallExpression,
 	isIdentifier,
 	isVariableDeclaration,
 } from "typescript";
-import { getPropsFromType, parse, walk } from "../core";
-import type { Component, Prop } from "../types";
+import { getPropsFromType, parse, walk } from "../core.ts";
+import type { Component, Prop } from "../types.ts";
 export function parseSvelte(path: string): Component[] {
 	const components: Component[] = [];
 	const code = readFileSync(path, { encoding: "utf-8" });
@@ -35,8 +34,3 @@ export function parseSvelte(path: string): Component[] {
 	});
 	return components;
 }
-
-console.log(
-	parseSvelte(resolve(fileURLToPath(import.meta.url), "./test.svelte")).at(0)
-		?.props,
-);
