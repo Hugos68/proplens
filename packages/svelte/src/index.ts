@@ -1,8 +1,7 @@
-import { lensFactory } from "../utility/lens-factory";
+import { type Prop, lensFactory } from "@proplens/core";
 import { parse } from "svelte/compiler";
-import type { Prop } from "../types";
 
-const svelteLens = lensFactory((code) => {
+const lens = lensFactory((code) => {
 	const props: Prop[] = [];
 	const parsed = parse(code);
 	const script = parsed.instance;
@@ -12,4 +11,4 @@ const svelteLens = lensFactory((code) => {
 	return props;
 });
 
-export { svelteLens };
+export { lens };
