@@ -1,4 +1,4 @@
-import { lensFactory } from "../utility/lens-factory.js";
+import { lensFactory } from "../utility/lens-factory";
 import { parse } from "svelte/compiler";
 import type { Prop } from "../types";
 

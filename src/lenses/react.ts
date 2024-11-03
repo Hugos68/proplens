@@ -1,4 +1,4 @@
-import { lensFactory } from "../utility/lens-factory.js";
+import { lensFactory } from "../utility/lens-factory";
 
 const reactLens = lensFactory(async (code) => {
 	return [];
