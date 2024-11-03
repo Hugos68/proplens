@@ -1,5 +1,5 @@
 {
-	"name": "@propslens/react",
+	"name": "@proplens/svelte",
 	"sideEffects": false,
 	"type": "module",
 	"exports": {
@@ -9,10 +9,11 @@
 			"require": "./dist/index.cjs"
 		}
 	},
-	"main": "./dist/index.cjs",
 	"module": "./dist/index.mjs",
 	"types": "./dist/index.d.ts",
-	"files": ["dist"],
+	"files": [
+		"dist"
+	],
 	"scripts": {
 		"build": "unbuild"
 	},
@@ -21,7 +22,7 @@
 		"unbuild": "catalog:"
 	},
 	"dependencies": {
-		"svelte": "^5.1.9",
-		"@propslens/core": "workspace:*"
+		"@proplens/core": "workspace:*",
+		"svelte": "^5.1.9"
 	}
 }

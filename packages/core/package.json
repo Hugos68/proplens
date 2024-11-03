@@ -1,5 +1,5 @@
 {
-	"name": "@propslens/core",
+	"name": "@proplens/core",
 	"sideEffects": false,
 	"type": "module",
 	"exports": {
@@ -12,7 +12,9 @@
 	"main": "./dist/index.cjs",
 	"module": "./dist/index.mjs",
 	"types": "./dist/index.d.ts",
-	"files": ["dist"],
+	"files": [
+		"dist"
+	],
 	"scripts": {
 		"build": "unbuild"
 	},

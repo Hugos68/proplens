@@ -4,7 +4,7 @@ import { parse } from "svelte/compiler";
 const lens = lensFactory((code) => {
 	const props: Prop[] = [];
 	const parsed = parse(code);
-	const script = parsed.instance;
+	const script = parsed['instance'];
 	if (!script) {
 		return props;
 	}
