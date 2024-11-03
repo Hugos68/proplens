@@ -1,6 +1,12 @@
+import { dirname } from "node:path";
+import { resolve } from "node:url";
 import {
 	type CompilerOptions,
+	JsxEmit,
+	ModuleKind,
+	ModuleResolutionKind,
 	type Node,
+	ScriptTarget,
 	SymbolFlags,
 	type Type,
 	type TypeChecker,
@@ -35,16 +41,42 @@ export function getPropsFromType(type: Type, typeChecker: TypeChecker) {
 	return props;
 }
 
-export function parse(code: string, options: CompilerOptions = {}) {
+export function parse(
+	code: string,
+	path: string,
+	options: CompilerOptions = {},
+) {
 	const host = createCompilerHost({});
+	const originalGetSourceFile = host.getSourceFile;
+	host.getCurrentDirectory = () => dirname(path);
 	host.getSourceFile = (fileName, languageVersion) => {
-		return createSourceFile(fileName, code, languageVersion, true);
+		if (fileName === "component.tsx") {
+			return createSourceFile(fileName, code, ScriptTarget.Latest, true);
+		}
+		return originalGetSourceFile(
+			resolve(dirname(path), fileName),
+			languageVersion,
+		);
 	};
 	const program = createProgram({
 		rootNames: ["component.tsx"],
-		options: options,
+		options: {
+			...options,
+			strict: true,
+			noEmit: true,
+			target: ScriptTarget.Latest,
+			module: ModuleKind.ESNext,
+			jsx: JsxEmit.Preserve,
+			moduleResolution: ModuleResolutionKind.NodeNext,
+			allowJs: true,
+			baseUrl: dirname(path),
+			paths: {
+				"*": ["*", "node_modules/*"],
+			},
+		},
 		host: host,
 	});
+
 	return {
 		sourceFile: program.getSourceFile("component.tsx"),
 		typeChecker: program.getTypeChecker(),

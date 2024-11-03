@@ -1,3 +1,5 @@
+import { readFileSync } from "node:fs";
+import { fileURLToPath, resolve } from "node:url";
 import { svelte2tsx } from "svelte2tsx";
 import {
 	isCallExpression,
@@ -6,10 +8,10 @@ import {
 } from "typescript";
 import { getPropsFromType, parse, walk } from "../core";
 import type { Component, Prop } from "../types";
-
-export function parseSvelte(code: string): Component[] {
+export function parseSvelte(path: string): Component[] {
 	const components: Component[] = [];
-	const parsed = parse(svelte2tsx(code).code);
+	const code = readFileSync(path, { encoding: "utf-8" });
+	const parsed = parse(svelte2tsx(code).code, path);
 	if (!parsed.sourceFile) {
 		return components;
 	}
@@ -33,3 +35,8 @@ export function parseSvelte(code: string): Component[] {
 	});
 	return components;
 }
+
+console.log(
+	parseSvelte(resolve(fileURLToPath(import.meta.url), "./test.svelte")).at(0)
+		?.props,
+);

@@ -1,21 +1,21 @@
 /// <reference types="vite/client" />
 
+import { fileURLToPath, resolve } from "node:url";
 import { describe, expect, test } from "vitest";
 import { parseSvelte } from "../src";
 import { parseReact } from "../src/frameworks/react";
 
-const fixtures = import.meta.glob("./fixtures/**/*", {
+const fixtures = import.meta.glob("./fixtures/**/*.{svelte,tsx}", {
 	query: "?raw",
-	import: "default",
 });
 
-const frameworkPropsGetterMap = new Map([
+const frameworkParseMap = new Map([
 	["svelte", parseSvelte],
 	["react", parseReact],
 ]);
 
 describe("fixtures", () => {
-	for (const [path, getCode] of Object.entries(fixtures)) {
+	for (const path of Object.keys(fixtures)) {
 		const name = path.split("/").at(-1);
 		if (!name) {
 			continue;
@@ -24,13 +24,12 @@ describe("fixtures", () => {
 		if (!framework) {
 			continue;
 		}
-		const propsGetter = frameworkPropsGetterMap.get(framework);
-		if (!propsGetter) {
+		const parse = frameworkParseMap.get(framework);
+		if (!parse) {
 			continue;
 		}
 		test(name, async () => {
-			const code = String(await getCode());
-			const actual = propsGetter(code);
+			const actual = parse(resolve(fileURLToPath(import.meta.url), path));
 			const expected = await import(
 				path.replace("fixtures", "results").replace(/\.\w+$/, ".json")
 			).then((module) => module.default);
