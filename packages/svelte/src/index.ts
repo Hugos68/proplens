@@ -21,14 +21,15 @@ import {
 } from "typescript";
 
 export const lens = lensFactory((path) => {
+	console.log(resolve(import.meta.dirname, path));
 	const props: Prop[] = [];
-	const code = readFileSync(path).toString();
-	const tsx = svelte2tsx(code);
+	const code = readFileSync(resolve(import.meta.dirname, path)).toString();
+	const tsx = svelte2tsx(code).code;
 	const compilerHost = createCompilerHost({});
 	const originalGetSourceFile = compilerHost.getSourceFile;
 	compilerHost.getSourceFile = (fileName, languageVersion) => {
 		if (fileName === "component.tsx") {
-			return createSourceFile(fileName, tsx.code, ScriptTarget.Latest, true);
+			return createSourceFile(fileName, tsx, languageVersion, true);
 		}
 		return originalGetSourceFile(
 			resolve(dirname(path), fileName),
@@ -53,6 +54,8 @@ export const lens = lensFactory((path) => {
 		host: compilerHost,
 	});
 	const typeChecker = program.getTypeChecker();
+
+
 	function getPropsFromType(type: Type): Prop[] {
 		const props: Prop[] = [];
 		for (const symbol of type.getProperties()) {
@@ -71,7 +74,7 @@ export const lens = lensFactory((path) => {
 				required: !(symbol.flags & SymbolFlags.Optional),
 				description: displayPartsToString(
 					symbol.getDocumentationComment(typeChecker),
-				),
+				)
 			});
 		}
 
