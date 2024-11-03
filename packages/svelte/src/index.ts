@@ -20,11 +20,10 @@ import {
 	type Node,
 } from "typescript";
 
-export const lens = lensFactory((filePath) => {
+export const lens = lensFactory((path) => {
 	const props: Prop[] = [];
-	const code = readFileSync(filePath).toString();
+	const code = readFileSync(path).toString();
 	const tsx = svelte2tsx(code);
-
 	const compilerHost = createCompilerHost({});
 	const originalGetSourceFile = compilerHost.getSourceFile;
 	compilerHost.getSourceFile = (fileName, languageVersion) => {
@@ -32,7 +31,7 @@ export const lens = lensFactory((filePath) => {
 			return createSourceFile(fileName, tsx.code, ScriptTarget.Latest, true);
 		}
 		return originalGetSourceFile(
-			resolve(dirname(filePath), fileName),
+			resolve(dirname(path), fileName),
 			languageVersion,
 		);
 	};
@@ -46,7 +45,7 @@ export const lens = lensFactory((filePath) => {
 			jsx: JsxEmit.Preserve,
 			moduleResolution: ModuleResolutionKind.NodeNext,
 			allowJs: true,
-			baseUrl: dirname(filePath),
+			baseUrl: dirname(path),
 			paths: {
 				"*": ["*", "node_modules/*"],
 			},
@@ -54,7 +53,6 @@ export const lens = lensFactory((filePath) => {
 		host: compilerHost,
 	});
 	const typeChecker = program.getTypeChecker();
-
 	function getPropsFromType(type: Type): Prop[] {
 		const props: Prop[] = [];
 		for (const symbol of type.getProperties()) {
@@ -91,17 +89,11 @@ export const lens = lensFactory((filePath) => {
 			const propsType = typeChecker.getTypeFromTypeNode(node.type);
 			props.push(...getPropsFromType(propsType));
 		}
-
 		forEachChild(node, visit);
 	}
-
 	const sourceFile = program.getSourceFile("component.tsx");
 	if (sourceFile) {
 		visit(sourceFile);
 	}
-
 	return props;
 });
-
-// Example usage:
-console.log(lens("./component.svelte"));
