@@ -29,23 +29,28 @@ export function getPropsFromSvelte(code: string): Prop[] {
 	const typeChecker = program.getTypeChecker();
 
 	function getPropsFromType(type: Type): Prop[] {
-		return type.getProperties().map((property) => {
-			const declarations = property.getDeclarations();
-			if (!declarations || !declarations[0]) {
-				return null;
-			}
-			const declaration = declarations[0];
-			const symbolType = typeChecker.getTypeOfSymbolAtLocation(
-				property,
-				declaration,
-			);
-			return {
-				name: property.getName(),
-				type: typeChecker.typeToString(symbolType),
-				required: !(property.flags & SymbolFlags.Optional),
-				docs: displayPartsToString(property.getDocumentationComment(typeChecker)),
-			}
-		}).filter((value) => value != null);
+		return type
+			.getProperties()
+			.map((property) => {
+				const declarations = property.getDeclarations();
+				if (!declarations || !declarations[0]) {
+					return null;
+				}
+				const declaration = declarations[0];
+				const symbolType = typeChecker.getTypeOfSymbolAtLocation(
+					property,
+					declaration,
+				);
+				return {
+					name: property.getName(),
+					type: typeChecker.typeToString(symbolType),
+					required: !(property.flags & SymbolFlags.Optional),
+					docs: displayPartsToString(
+						property.getDocumentationComment(typeChecker),
+					),
+				};
+			})
+			.filter((value) => value != null);
 	}
 	function visit(node: Node) {
 		if (
