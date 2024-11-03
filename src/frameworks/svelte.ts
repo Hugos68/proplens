@@ -1,13 +1,6 @@
-import { readFileSync } from "node:fs";
-import { dirname, resolve } from "node:path";
-import { type Prop, lensFactory } from "@proplens/core";
 import { svelte2tsx } from "svelte2tsx";
 import {
-	JsxEmit,
-	ModuleKind,
-	ModuleResolutionKind,
 	type Node,
-	ScriptTarget,
 	SymbolFlags,
 	type Type,
 	createCompilerHost,
@@ -19,42 +12,21 @@ import {
 	isIdentifier,
 	isVariableDeclaration,
 } from "typescript";
+import type { Prop } from "../types";
 
-export const lens = lensFactory((path) => {
-	console.log(resolve(import.meta.dirname, path));
+export function getPropsFromSvelte(code: string): Prop[] {
 	const props: Prop[] = [];
-	const code = readFileSync(resolve(import.meta.dirname, path)).toString();
 	const tsx = svelte2tsx(code).code;
 	const compilerHost = createCompilerHost({});
-	const originalGetSourceFile = compilerHost.getSourceFile;
 	compilerHost.getSourceFile = (fileName, languageVersion) => {
-		if (fileName === "component.tsx") {
-			return createSourceFile(fileName, tsx, languageVersion, true);
-		}
-		return originalGetSourceFile(
-			resolve(dirname(path), fileName),
-			languageVersion,
-		);
+		return createSourceFile(fileName, tsx, languageVersion, true);
 	};
 	const program = createProgram({
 		rootNames: ["component.tsx"],
-		options: {
-			strict: true,
-			noEmit: true,
-			target: ScriptTarget.Latest,
-			module: ModuleKind.ESNext,
-			jsx: JsxEmit.Preserve,
-			moduleResolution: ModuleResolutionKind.NodeNext,
-			allowJs: true,
-			baseUrl: dirname(path),
-			paths: {
-				"*": ["*", "node_modules/*"],
-			},
-		},
+		options: {},
 		host: compilerHost,
 	});
 	const typeChecker = program.getTypeChecker();
-
 
 	function getPropsFromType(type: Type): Prop[] {
 		const props: Prop[] = [];
@@ -72,9 +44,7 @@ export const lens = lensFactory((path) => {
 				name: symbol.getName(),
 				type: typeChecker.typeToString(symbolType),
 				required: !(symbol.flags & SymbolFlags.Optional),
-				description: displayPartsToString(
-					symbol.getDocumentationComment(typeChecker),
-				)
+				docs: displayPartsToString(symbol.getDocumentationComment(typeChecker)),
 			});
 		}
 
@@ -99,4 +69,4 @@ export const lens = lensFactory((path) => {
 		visit(sourceFile);
 	}
 	return props;
-});
+}

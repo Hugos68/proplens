@@ -4,22 +4,29 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
-catalogs:
-  default:
-    typescript:
-      specifier: ^5.6.0
-      version: 5.6.3
-    unbuild:
-      specifier: ^2.0.0
-      version: 2.0.0
-
 importers:
 
   .:
+    dependencies:
+      svelte2tsx:
+        specifier: ^0.7.22
+        version: 0.7.22(svelte@5.1.9)(typescript@5.6.3)
+      typecript:
+        specifier: 0.0.1-security
+        version: 0.0.1-security
+      typescript:
+        specifier: ^5.6.3
+        version: 5.6.3
     devDependencies:
       '@biomejs/biome':
         specifier: ^1.9.4
         version: 1.9.4
+      '@types/node':
+        specifier: ^22.8.7
+        version: 22.8.7
+      unbuild:
+        specifier: ^2.0.0
+        version: 2.0.0(typescript@5.6.3)
       vite:
         specifier: ^5.4.10
         version: 5.4.10(@types/node@22.8.7)
@@ -1614,6 +1621,9 @@ packages:
   tslib@2.8.1:
     resolution: {integrity: sha512-oJFu94HQb+KVduSUQL7wnpmqnfmLsOA/nAh6b6EH0wCEoK0/mPeXU6c3wKDV83MkOuHPRHtSXKKU99IBazS/2w==}
 
+  typecript@0.0.1-security:
+    resolution: {integrity: sha512-88WUWdO0zl/cC+X44m7TJkNssn0sTwZOSAyZu7ZmY6BfGJ4idVWJGjFmd6wEjS3yhWUYrAszzNMHZMIJ7h3ycg==}
+
   typescript@5.6.3:
     resolution: {integrity: sha512-hjcS1mhfuyi4WW8IWtjP7brDrG2cuDZukyrYrSauoXGNgx0S7zceP07adYkJycEr56BOUTNPzbInooiN3fn1qw==}
     engines: {node: '>=14.17'}
@@ -3092,6 +3102,8 @@ snapshots:
       is-number: 7.0.0
 
   tslib@2.8.1: {}
+
+  typecript@0.0.1-security: {}
 
   typescript@5.6.3: {}
 

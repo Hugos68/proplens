@@ -1,8 +1,6 @@
 export interface Prop {
 	name: string;
 	type: string;
-	description?: string;
 	required: boolean;
+	docs?: string;
 }
-
-export type Lens = (path: string) => Prop[];
