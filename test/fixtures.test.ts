@@ -1,14 +1,18 @@
 /// <reference types="vite/client" />
 
 import { describe, expect, test } from "vitest";
-import { getPropsFromSvelte } from "../src";
+import { parseSvelte } from "../src";
+import { parseReact } from "../src/frameworks/react";
 
 const fixtures = import.meta.glob("./fixtures/**/*", {
 	query: "?raw",
 	import: "default",
 });
 
-const frameworkPropsGetterMap = new Map([["svelte", getPropsFromSvelte]]);
+const frameworkPropsGetterMap = new Map([
+	["svelte", parseSvelte],
+	["react", parseReact],
+]);
 
 describe("fixtures", () => {
 	for (const [path, getCode] of Object.entries(fixtures)) {
@@ -16,11 +20,11 @@ describe("fixtures", () => {
 		if (!name) {
 			continue;
 		}
-		const extension = name.split(".").at(-1);
-		if (!extension) {
+		const framework = path.split("/").at(2);
+		if (!framework) {
 			continue;
 		}
-		const propsGetter = frameworkPropsGetterMap.get(extension);
+		const propsGetter = frameworkPropsGetterMap.get(framework);
 		if (!propsGetter) {
 			continue;
 		}
@@ -28,7 +32,7 @@ describe("fixtures", () => {
 			const code = String(await getCode());
 			const actual = propsGetter(code);
 			const expected = await import(
-				path.replace("fixtures", "results").replace(".svelte", ".json")
+				path.replace("fixtures", "results").replace(/\.\w+$/, ".json")
 			).then((module) => module.default);
 			expect(actual).toStrictEqual(expected);
 		});

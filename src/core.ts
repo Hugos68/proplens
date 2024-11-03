@@ -2,6 +2,9 @@ import {
 	SymbolFlags,
 	type Type,
 	type TypeChecker,
+	createCompilerHost,
+	createProgram,
+	createSourceFile,
 	displayPartsToString,
 } from "typescript";
 import type { Prop } from "./types";
@@ -27,4 +30,21 @@ export function getPropsFromType(type: Type, typeChecker: TypeChecker) {
 		});
 	}
 	return props;
+}
+
+export function parseTsx(code: string) {
+	const compilerHost = createCompilerHost({});
+	compilerHost.getSourceFile = (fileName, languageVersion) => {
+		return createSourceFile(fileName, code, languageVersion, true);
+	};
+	const program = createProgram({
+		rootNames: ["component.tsx"],
+		options: {},
+		host: compilerHost,
+	});
+
+	return {
+		sourceFile: program.getSourceFile("component.tsx"),
+		typeChecker: program.getTypeChecker(),
+	};
 }

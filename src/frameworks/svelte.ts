@@ -1,30 +1,17 @@
 import { svelte2tsx } from "svelte2tsx";
 import {
 	type Node,
-	createCompilerHost,
-	createProgram,
-	createSourceFile,
 	forEachChild,
 	isCallExpression,
 	isIdentifier,
 	isVariableDeclaration,
 } from "typescript";
-import { getPropsFromType } from "../core";
-import type { Prop } from "../types";
+import { getPropsFromType, parseTsx } from "../core";
+import type { Component, Prop } from "../types";
 
-export function getPropsFromSvelte(code: string): Prop[] {
-	const props: Prop[] = [];
-	const tsx = svelte2tsx(code).code;
-	const compilerHost = createCompilerHost({});
-	compilerHost.getSourceFile = (fileName, languageVersion) => {
-		return createSourceFile(fileName, tsx, languageVersion, true);
-	};
-	const program = createProgram({
-		rootNames: ["component.tsx"],
-		options: {},
-		host: compilerHost,
-	});
-	const typeChecker = program.getTypeChecker();
+export function parseSvelte(code: string): Component[] {
+	const components: Component[] = [];
+	const parsed = parseTsx(svelte2tsx(code).code);
 	function visit(node: Node) {
 		if (
 			isVariableDeclaration(node) &&
@@ -34,15 +21,19 @@ export function getPropsFromSvelte(code: string): Prop[] {
 			isIdentifier(node.initializer.expression) &&
 			node.initializer.expression.text === "$props"
 		) {
-			const propsType = typeChecker.getTypeFromTypeNode(node.type);
-			props.push(...getPropsFromType(propsType, typeChecker));
+			const props: Prop[] = [];
+			const propsType = parsed.typeChecker.getTypeFromTypeNode(node.type);
+			props.push(...getPropsFromType(propsType, parsed.typeChecker));
+			components.push({
+				exportType: "default",
+				props: props,
+			});
 			return;
 		}
 		forEachChild(node, visit);
 	}
-	const sourceFile = program.getSourceFile("component.tsx");
-	if (sourceFile) {
-		visit(sourceFile);
+	if (parsed.sourceFile) {
+		visit(parsed.sourceFile);
 	}
-	return props;
+	return components;
 }
