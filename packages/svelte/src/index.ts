@@ -1,11 +1,12 @@
 import { readFileSync } from "node:fs";
-import { resolve, dirname } from "node:path";
+import { dirname, resolve } from "node:path";
 import { type Prop, lensFactory } from "@proplens/core";
 import { svelte2tsx } from "svelte2tsx";
 import {
 	JsxEmit,
 	ModuleKind,
 	ModuleResolutionKind,
+	type Node,
 	ScriptTarget,
 	SymbolFlags,
 	type Type,
@@ -17,7 +18,6 @@ import {
 	isCallExpression,
 	isIdentifier,
 	isVariableDeclaration,
-	type Node,
 } from "typescript";
 
 export const lens = lensFactory((path) => {
