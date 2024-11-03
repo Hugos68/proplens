@@ -1,2 +1,2 @@
-export * from "./types.ts";
-export * from "./frameworks/svelte.ts";
+export * from "./types";
+export * from "./frameworks/svelte";

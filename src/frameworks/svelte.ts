@@ -5,8 +5,9 @@ import {
 	isIdentifier,
 	isVariableDeclaration,
 } from "typescript";
-import { getPropsFromType, parse, walk } from "../core.ts";
-import type { Component, Prop } from "../types.ts";
+import { getPropsFromType, parse, walk } from "../core";
+import type { Component, Prop } from "../types";
+
 export function parseSvelte(path: string): Component[] {
 	const components: Component[] = [];
 	const code = readFileSync(path, { encoding: "utf-8" });

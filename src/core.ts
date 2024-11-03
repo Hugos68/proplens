@@ -16,7 +16,7 @@ import {
 	displayPartsToString,
 	forEachChild,
 } from "typescript";
-import type { Prop } from "./types.ts";
+import type { Prop } from "./types";
 
 export function getPropsFromType(type: Type, typeChecker: TypeChecker) {
 	const props: Prop[] = [];

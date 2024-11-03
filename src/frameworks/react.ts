@@ -1,7 +1,7 @@
 import { readFileSync } from "node:fs";
 import { isNamedExports } from "typescript";
-import { parse, walk } from "../core.ts";
-import type { Component } from "../types.ts";
+import { parse, walk } from "../core";
+import type { Component } from "../types";
 
 export function parseReact(path: string): Component[] {
 	const components: Component[] = [];
