@@ -1,0 +1,8 @@
+[
+	{
+		"name": "foo",
+		"type": "string",
+		"required": true,
+        "docs": ""
+	}
+]
