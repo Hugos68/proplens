@@ -21,7 +21,9 @@ export function getPropsFromType(type: Type, typeChecker: TypeChecker) {
 			name: property.getName(),
 			type: typeChecker.typeToString(propertyType),
 			required: !(property.flags & SymbolFlags.Optional),
-			docs: displayPartsToString(property.getDocumentationComment(typeChecker)),
+			docs:
+				displayPartsToString(property.getDocumentationComment(typeChecker)) ||
+				null,
 		});
 	}
 	return props;
