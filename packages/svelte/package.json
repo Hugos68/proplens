@@ -11,18 +11,18 @@
 	},
 	"module": "./dist/index.mjs",
 	"types": "./dist/index.d.ts",
-	"files": [
-		"dist"
-	],
+	"files": ["dist"],
 	"scripts": {
 		"build": "unbuild"
 	},
 	"devDependencies": {
+		"@zag-js/accordion": "^0.77.0",
 		"typescript": "catalog:",
 		"unbuild": "catalog:"
 	},
 	"dependencies": {
 		"@proplens/core": "workspace:*",
-		"svelte": "^5.1.9"
+		"@types/node": "^22.8.7",
+		"svelte2tsx": "^0.7.22"
 	}
 }

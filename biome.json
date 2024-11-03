@@ -1,0 +1,18 @@
+{
+	"$schema": "https://biomejs.dev/schemas/1.9.4/schema.json",
+	"formatter": {
+		"ignore": ["**/dist", "**/node_modules"],
+		"enabled": true
+	},
+	"linter": {
+		"ignore": ["**/dist", "**/node_modules"],
+		"enabled": true,
+		"rules": {
+			"recommended": true
+		}
+	},
+	"organizeImports": {
+		"ignore": ["**/dist", "**/node_modules"],
+		"enabled": true
+	}
+}
