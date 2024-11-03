@@ -1,4 +1,6 @@
 import {
+	type CompilerOptions,
+	type Node,
 	SymbolFlags,
 	type Type,
 	type TypeChecker,
@@ -6,6 +8,7 @@ import {
 	createProgram,
 	createSourceFile,
 	displayPartsToString,
+	forEachChild,
 } from "typescript";
 import type { Prop } from "./types";
 
@@ -32,19 +35,25 @@ export function getPropsFromType(type: Type, typeChecker: TypeChecker) {
 	return props;
 }
 
-export function parseTsx(code: string) {
-	const compilerHost = createCompilerHost({});
-	compilerHost.getSourceFile = (fileName, languageVersion) => {
+export function parse(code: string, options: CompilerOptions = {}) {
+	const host = createCompilerHost({});
+	host.getSourceFile = (fileName, languageVersion) => {
 		return createSourceFile(fileName, code, languageVersion, true);
 	};
 	const program = createProgram({
 		rootNames: ["component.tsx"],
-		options: {},
-		host: compilerHost,
+		options: options,
+		host: host,
 	});
-
 	return {
 		sourceFile: program.getSourceFile("component.tsx"),
 		typeChecker: program.getTypeChecker(),
 	};
+}
+
+export function walk(node: Node, callback: (node: Node) => void) {
+	forEachChild(node, (node) => {
+		callback(node);
+		walk(node, callback);
+	});
 }
