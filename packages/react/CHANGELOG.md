@@ -1,5 +1,13 @@
 # @proplens/react
 
+## 0.0.2
+
+### Patch Changes
+
+- 5572db2: Removed exportType in favor of nullable name as not all components will be exported in React.
+- Updated dependencies [5572db2]
+  - @proplens/shared@0.0.2
+
 ## 0.0.1
 
 ### Patch Changes
