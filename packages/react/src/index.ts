@@ -7,8 +7,6 @@ import {
 	walk,
 } from "@proplens/shared";
 import {
-	type ArrowFunction,
-	type FunctionDeclaration,
 	isArrowFunction,
 	isFunctionDeclaration,
 } from "typescript";
