@@ -13,12 +13,7 @@
 	},
 	"main": "./dist/index.cjs",
 	"types": "./dist/index.d.ts",
-	"files": [
-		"dist"
-	],
-	"publishConfig": {
-		"access": "public"
-	},
+	"files": ["dist"],
 	"devDependencies": {
 		"@proplens/mock": "workspace:*",
 		"@types/node": "catalog:",
