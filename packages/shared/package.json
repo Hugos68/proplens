@@ -1,6 +1,6 @@
 {
 	"name": "@proplens/shared",
-	"version": "0.0.0",
+	"version": "0.0.1",
 	"type": "module",
 	"scripts": {
 		"build": "unbuild"
@@ -13,7 +13,9 @@
 	},
 	"main": "./dist/index.cjs",
 	"types": "./dist/index.d.ts",
-	"files": ["dist"],
+	"files": [
+		"dist"
+	],
 	"dependencies": {
 		"typescript": "catalog:"
 	},
