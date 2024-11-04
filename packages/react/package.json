@@ -15,7 +15,8 @@
 	"types": "./dist/index.d.ts",
 	"files": ["dist"],
 	"devDependencies": {
-		"@types/node": "^22.8.7",
+		"@proplens/mock": "workspace:*",
+		"@types/node": "catalog:",
 		"unbuild": "catalog:"
 	},
 	"dependencies": {

@@ -8,8 +8,13 @@ A tool to extract prop information out of components from various frameworks.
 pnpm add proplens
 ```
 
+## CLI Usage
+
+TBD
+
 ## Supported Frameworks
 
-- [Svelte](https://svelte.dev/)
+- [Svelte](./packages/svelte)
+- [React](./packages/react)
 
 *Don't see your framework? Consider contributing!*

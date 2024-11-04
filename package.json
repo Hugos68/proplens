@@ -8,6 +8,7 @@
 	},
 	"devDependencies": {
 		"@biomejs/biome": "^1.9.4",
+		"@types/react": "^18.3.12",
 		"vite": "^5.4.10",
 		"vitest": "^2.1.4"
 	},

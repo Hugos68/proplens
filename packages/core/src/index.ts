@@ -3,6 +3,7 @@ import { resolve } from "node:url";
 import {
 	type CompilerOptions,
 	JsxEmit,
+	ModuleDetectionKind,
 	ModuleKind,
 	ModuleResolutionKind,
 	type Node,
@@ -19,6 +20,16 @@ import {
 import type { Prop } from "./types";
 
 export * from "./types";
+
+const defaultCompilerOptions: CompilerOptions = {
+	strict: true,
+	module: ModuleKind.NodeNext,
+	target: ScriptTarget.ESNext,
+	allowJs: true,
+	skipDefaultLibCheck: true,
+	skipLibCheck: true,
+	moduleDetection: ModuleDetectionKind.Force,
+};
 
 export function getPropsFromType(type: Type, typeChecker: TypeChecker) {
 	const props: Prop[] = [];
@@ -63,18 +74,12 @@ export function parse(
 	const program = createProgram({
 		rootNames: ["component.tsx"],
 		options: {
-			...options,
-			strict: true,
-			noEmit: true,
-			target: ScriptTarget.Latest,
-			module: ModuleKind.ESNext,
-			jsx: JsxEmit.Preserve,
-			moduleResolution: ModuleResolutionKind.NodeNext,
-			allowJs: true,
+			...defaultCompilerOptions,
 			baseUrl: dirname(path),
 			paths: {
 				"*": ["*", "node_modules/*"],
 			},
+			...options,
 		},
 		host: host,
 	});
