@@ -4,7 +4,8 @@
 	"scripts": {
 		"build": "pnpm -r build",
 		"test": "vitest",
-		"check": "biome check"
+		"check": "biome check",
+		"postinstall": "pnpm build"
 	},
 	"devDependencies": {
 		"@biomejs/biome": "^1.9.4",
