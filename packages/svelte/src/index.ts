@@ -33,7 +33,7 @@ export function parseSvelte(path: string): Component[] {
 			const propsType = parsed.typeChecker.getTypeFromTypeNode(node.type);
 			props.push(...getPropsFromType(propsType, parsed.typeChecker));
 			components.push({
-				exportType: "default",
+				name: null,
 				props: props,
 			});
 		}

@@ -22,21 +22,8 @@ export function parseReact(path: string): Component[] {
 		return components;
 	}
 
-	function isReactComponent(node: FunctionDeclaration | ArrowFunction) {
-		const signature = parsed.typeChecker.getSignatureFromDeclaration(node);
-		if (!signature) {
-			return false;
-		}
-		const returnType = parsed.typeChecker.getReturnTypeOfSignature(signature);
-		const returnTypeString = parsed.typeChecker.typeToString(returnType);
-		return ["Element", "ReactElement"].includes(returnTypeString);
-	}
-
 	walk(parsed.sourceFile, (node) => {
 		if (!isFunctionDeclaration(node) && !isArrowFunction(node)) {
-			return;
-		}
-		if (!isReactComponent(node)) {
 			return;
 		}
 		const propsNode = node.parameters[0];
@@ -46,21 +33,11 @@ export function parseReact(path: string): Component[] {
 		const props: Prop[] = [];
 		const propsType = parsed.typeChecker.getTypeFromTypeNode(propsNode.type);
 		props.push(...getPropsFromType(propsType, parsed.typeChecker));
-
-		const name = node.name?.getText();
-
-		if (name) {
-			components.push({
-				exportType: "named",
-				name: name,
-				props: props,
-			});
-		} else {
-			components.push({
-				exportType: "default",
-				props: props,
-			});
-		}
+		const name = node.name?.getText() ?? null;
+		components.push({
+			name: name,
+			props: props,
+		});
 	});
 	return components;
 }
