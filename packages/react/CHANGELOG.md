@@ -1,5 +1,11 @@
 # @proplens/react
 
+## 0.0.3
+
+### Patch Changes
+
+- 2ba0fac: Rewrote internal logic for grabbing type and/or name
+
 ## 0.0.2
 
 ### Patch Changes
