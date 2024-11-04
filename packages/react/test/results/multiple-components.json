@@ -1,0 +1,25 @@
+[
+	{
+		"exportType": "default",
+		"props": [
+			{
+				"name": "foo",
+				"type": "string",
+				"required": true,
+				"docs": null
+			}
+		]
+	},
+	{
+		"exportType": "named",
+		"name": "Bar",
+		"props": [
+			{
+				"docs": null,
+				"name": "bar",
+				"required": true,
+				"type": "string"
+			}
+		]
+	}
+]
