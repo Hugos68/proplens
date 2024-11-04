@@ -6,7 +6,7 @@ on:
 concurrency: ${{ github.workflow }}-${{ github.ref }}
 jobs:
   publish:
-    name: Publish
+    runs-on: ubuntu-latest
     strategy:
       matrix:
         node-version: [ 22 ]
