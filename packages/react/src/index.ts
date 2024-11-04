@@ -6,7 +6,11 @@ import {
 	parse,
 	walk,
 } from "@proplens/shared";
-import { isArrowFunction, isFunctionDeclaration } from "typescript";
+import {
+	isArrowFunction,
+	isFunctionDeclaration,
+	isVariableDeclaration,
+} from "typescript";
 
 export function parseReact(path: string): Component[] {
 	const components: Component[] = [];
@@ -16,19 +20,19 @@ export function parseReact(path: string): Component[] {
 	if (!parsed.sourceFile) {
 		return components;
 	}
-
 	walk(parsed.sourceFile, (node) => {
 		if (!isFunctionDeclaration(node) && !isArrowFunction(node)) {
 			return;
 		}
-		const propsNode = node.parameters[0];
-		if (!propsNode || !propsNode.type) {
+		const propsParam = node.parameters[0];
+		if (!propsParam) {
 			return;
 		}
-		const props: Prop[] = [];
-		const propsType = parsed.typeChecker.getTypeFromTypeNode(propsNode.type);
-		props.push(...getPropsFromType(propsType, parsed.typeChecker));
-		const name = node.name?.getText() ?? null;
+		const propsType = parsed.typeChecker.getTypeAtLocation(propsParam);
+		const name = isVariableDeclaration(node.parent)
+			? node.parent.name.getText()
+			: (node.name?.getText() ?? null);
+		const props = getPropsFromType(propsType, parsed.typeChecker);
 		components.push({
 			name: name,
 			props: props,
