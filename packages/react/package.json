@@ -1,6 +1,6 @@
 {
 	"name": "@proplens/react",
-	"version": "0.0.1",
+	"version": "0.0.0",
 	"type": "module",
 	"scripts": {
 		"build": "unbuild"
@@ -20,7 +20,7 @@
 		"unbuild": "catalog:"
 	},
 	"dependencies": {
-		"@proplens/core": "workspace:*",
+		"@proplens/shared": "workspace:*",
 		"typescript": "catalog:"
 	}
 }

@@ -5,7 +5,7 @@ import {
 	getPropsFromType,
 	parse,
 	walk,
-} from "@proplens/core";
+} from "@proplens/shared";
 import {
 	type ArrowFunction,
 	type FunctionDeclaration,

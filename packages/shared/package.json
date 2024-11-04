@@ -1,6 +1,6 @@
 {
-	"name": "@proplens/core",
-	"version": "0.0.1",
+	"name": "@proplens/shared",
+	"version": "0.0.0",
 	"type": "module",
 	"scripts": {
 		"build": "unbuild"
