@@ -6,10 +6,7 @@ import {
 	parse,
 	walk,
 } from "@proplens/shared";
-import {
-	isArrowFunction,
-	isFunctionDeclaration,
-} from "typescript";
+import { isArrowFunction, isFunctionDeclaration } from "typescript";
 
 export function parseReact(path: string): Component[] {
 	const components: Component[] = [];
