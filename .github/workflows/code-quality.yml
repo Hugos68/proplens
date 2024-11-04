@@ -18,7 +18,7 @@ jobs:
       - name: Install dependencies
         run: pnpm install
       - name: Check code
-        run: pnpm check
+        run: pnpm biome check
   build:
     runs-on: ubuntu-latest
     strategy:
