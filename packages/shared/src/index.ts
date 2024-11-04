@@ -2,10 +2,8 @@ import { dirname } from "node:path";
 import { resolve } from "node:url";
 import {
 	type CompilerOptions,
-	JsxEmit,
 	ModuleDetectionKind,
 	ModuleKind,
-	ModuleResolutionKind,
 	type Node,
 	ScriptTarget,
 	SymbolFlags,
